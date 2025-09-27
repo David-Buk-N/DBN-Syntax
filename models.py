@@ -11,27 +11,28 @@ def initialize_firebase():
     global firebase_app
     if not firebase_app:
         try:
-            # Use environment variables for Firebase configuration
-            project_id = os.getenv('FIREBASE_PROJECT_ID')
-            private_key = os.getenv('FIREBASE_PRIVATE_KEY').replace('\\n', '\n')
-            client_email = os.getenv('FIREBASE_CLIENT_EMAIL')
-            
-            cred = credentials.Certificate({
-                "type": "service_account",
-                "project_id": project_id,
-                "private_key": private_key,
-                "client_email": client_email,
-            })
-            
+            load_dotenv()  # load .env file
+
+            # Build service account dictionary from env
+            service_account_info = {
+                "type": os.getenv("FIREBASE_TYPE"),
+                "project_id": os.getenv("FIREBASE_PROJECT_ID"),
+                "private_key_id": os.getenv("FIREBASE_PRIVATE_KEY_ID"),
+                "private_key": os.getenv("FIREBASE_PRIVATE_KEY").replace("\\n", "\n"),
+                "client_email": os.getenv("FIREBASE_CLIENT_EMAIL"),
+                "client_id": os.getenv("FIREBASE_CLIENT_ID"),
+                "auth_uri": os.getenv("FIREBASE_AUTH_URI"),
+                "token_uri": os.getenv("FIREBASE_TOKEN_URI"),
+                "auth_provider_x509_cert_url": os.getenv("FIREBASE_AUTH_PROVIDER_X509_CERT_URL"),
+                "client_x509_cert_url": os.getenv("FIREBASE_CLIENT_X509_CERT_URL"),
+            }
+
+            cred = credentials.Certificate(service_account_info)
             firebase_app = firebase_admin.initialize_app(cred)
-            print("Firebase initialized successfully")
+            print("✅ Firebase initialized successfully")
+
         except Exception as e:
-            print(f"Error initializing Firebase: {e}")
-            
-            # For local development without proper Firebase credentials
-            cred = credentials.Certificate("firebase_config.json")
-            firebase_app = firebase_admin.initialize_app(cred)
-            print("Firebase initialized with local credentials")
+            print(f"❌ Error initializing Firebase: {e}")
 
 def get_db():
     """Returns a Firestore database client."""
