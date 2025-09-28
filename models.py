@@ -3,6 +3,7 @@ from firebase_admin import credentials, firestore, auth
 import os
 from datetime import datetime
 from flask import session
+from dotenv import load_dotenv
 
 # Firebase initialization
 firebase_app = None

@@ -1,39 +1,32 @@
 {% extends 'base.html' %}
 
-{% block title %}Edit Profile - RehabTracker{% endblock %}
+{% block title %}Edit Profile - Mind Link{% endblock %}
 
 {% block content %}
-<div class="row">
-    <div class="col-md-8 offset-md-2">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between align-items-center">
-                <h2 class="mb-0">Edit Profile</h2>
-                <a href="{{ url_for('auth.profile') }}" class="btn btn-outline">Back to Profile</a>
+<section class="section" style="max-width: 600px; margin: 0 auto;">
+    <div class="container">
+        <div class="feature-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333; box-shadow: 0 10px 30px var(--shadow); border-radius: 20px; padding: 2.5rem 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="margin: 0;">Edit Profile</h2>
+                <a href="{{ url_for('auth.profile') }}" style="background: var(--section-bg); color: var(--primary-color); padding: 0.5rem 1.2rem; border-radius: 25px; font-weight: bold; text-decoration: none; border: 1px solid var(--primary-color); transition: all 0.3s ease;">Back to Profile</a>
             </div>
-            <div class="card-body p-4">
-                <form method="POST" action="{{ url_for('auth.edit_profile') }}">
-                    <div class="form-group mb-3">
-                        <label for="name">Full Name</label>
-                        <input type="text" class="form-control" id="name" name="name" value="{{ user.name }}" required>
-                    </div>
-                    
-                    <div class="form-group mb-3">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" value="{{ user.email }}" disabled>
-                        <small class="form-text text-muted">Email cannot be changed.</small>
-                    </div>
-                    
-                    <div class="form-group mb-4">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" class="form-control" id="phone" name="phone" value="{{ user.phone if user.phone else '' }}">
-                    </div>
-                    
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Save Changes</button>
-                    </div>
-                </form>
-            </div>
+            <form method="POST" action="{{ url_for('auth.edit_profile') }}" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                <div>
+                    <label for="name" style="font-weight: 500; margin-bottom: 0.5rem; display: block;">Full Name</label>
+                    <input type="text" id="name" name="name" value="{{ user.name }}" required style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color);">
+                </div>
+                <div>
+                    <label for="email" style="font-weight: 500; margin-bottom: 0.5rem; display: block;">Email</label>
+                    <input type="email" id="email" value="{{ user.email }}" disabled style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-muted);">
+                    <small style="color: var(--text-muted);">Email cannot be changed.</small>
+                </div>
+                <div>
+                    <label for="phone" style="font-weight: 500; margin-bottom: 0.5rem; display: block;">Phone Number</label>
+                    <input type="tel" id="phone" name="phone" value="{{ user.phone if user.phone else '' }}" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color);">
+                </div>
+                <button type="submit" style="background: var(--primary-color); color: white; padding: 0.9rem 0; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 1rem; transition: all 0.3s ease;">Save Changes</button>
+            </form>
         </div>
     </div>
-</div>
+</section>
 {% endblock %}

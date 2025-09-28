@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Mental Health Survey - Mind Link{% endblock %}
+
+{% block content %}
+<section class="section" style="max-width: 600px; margin: 0 auto;">
+    <div class="container">
+        <div class="feature-card" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%); color: #333; box-shadow: 0 10px 30px var(--shadow); border-radius: 20px; padding: 2.5rem 2rem;">
+            <h2 style="text-align:center; margin-bottom: 1.5rem;">Mental Health Survey</h2>
+            <form method="POST" action="{{ url_for('patient_user.survey') }}" style="display: flex; flex-direction: column; gap: 1.2rem;">
+                <div>
+                    <label for="mood">How would you rate your mood today?</label>
+                    <select id="mood" name="mood" required style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color);">
+                        <option value="excellent">Excellent</option>
+                        <option value="good">Good</option>
+                        <option value="okay">Okay</option>
+                        <option value="poor">Poor</option>
+                        <option value="crisis">Crisis</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="stress">How stressed do you feel?</label>
+                    <select id="stress" name="stress" required style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color);">
+                        <option value="none">None</option>
+                        <option value="mild">Mild</option>
+                        <option value="moderate">Moderate</option>
+                        <option value="severe">Severe</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="sleep">How well are you sleeping?</label>
+                    <select id="sleep" name="sleep" required style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color);">
+                        <option value="well">Well</option>
+                        <option value="average">Average</option>
+                        <option value="poor">Poor</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="support">Do you feel you have enough support?</label>
+                    <select id="support" name="support" required style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color);">
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="notes">Anything else you'd like to share?</label>
+                    <textarea id="notes" name="notes" rows="3" style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color);"></textarea>
+                </div>
+                <button type="submit" style="background: var(--primary-color); color: white; padding: 0.9rem 0; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 1rem; transition: all 0.3s ease;">Submit Survey</button>
+            </form>
+            {% if gemini_result %}
+                <div style="position: fixed; bottom: 40px; right: 40px; z-index: 3000; background: #fffbe6; color: #333; border-radius: 18px; padding: 2rem 2.2rem; box-shadow: 0 8px 32px var(--shadow); max-width: 400px; min-width: 280px;">
+                    <h3 style="color: var(--primary-color); margin-bottom: 1rem;">Gemini AI Result</h3>
+                    <p style="font-size: 1.08rem;">{{ gemini_result }}</p>
+                    {% if not user %}
+                        <p style="margin-top: 1rem;">For more personalized support, <a href="{{ url_for('auth.register') }}" style="color: var(--primary-color); text-decoration: underline;">register</a> or <a href="{{ url_for('auth.login') }}" style="color: var(--primary-color); text-decoration: underline;">log in</a>.</p>
+                    {% else %}
+                        <a href="{{ url_for('patient_user.find_therapist') }}" style="background: var(--primary-color); color: white; padding: 0.7rem 1.5rem; border-radius: 25px; font-weight: bold; text-decoration: none; font-size: 1rem; margin-top: 1rem; display: inline-block;">Book a Consultation</a>
+                    {% endif %}
+                </div>
+            {% elif diagnosis %}
+                <div style="margin-top: 2rem; background: #fffbe6; color: #333; border-radius: 12px; padding: 1.5rem; box-shadow: 0 2px 8px var(--shadow);">
+                    <h3 style="color: var(--primary-color);">Your AI Diagnosis</h3>
+                    <p>{{ diagnosis }}</p>
+                    {% if not user %}
+                        <p style="margin-top: 1rem;">For more personalized support, <a href="{{ url_for('auth.register') }}" style="color: var(--primary-color); text-decoration: underline;">register</a> or <a href="{{ url_for('auth.login') }}" style="color: var(--primary-color); text-decoration: underline;">log in</a>.</p>
+                    {% else %}
+                        <a href="{{ url_for('patient_user.find_therapist') }}" style="background: var(--primary-color); color: white; padding: 0.7rem 1.5rem; border-radius: 25px; font-weight: bold; text-decoration: none; font-size: 1rem; margin-top: 1rem; display: inline-block;">Book a Consultation</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

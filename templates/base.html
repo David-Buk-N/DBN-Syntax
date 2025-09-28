@@ -3,98 +3,598 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Rehabilitation Center{% endblock %}</title>
-    
-    <!-- CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
-    
-    <!-- Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">
-    
-    <!-- Additional CSS -->
-    {% block styles %}{% endblock %}
-</head>
-<body class="fade-in">
-    <!-- Navbar -->
-    <nav class="navbar">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('home') }}">
-                <i class="bi bi-heart-pulse me-2"></i>RehabTracker
-            </a>
+    <title>{% block title %}Mind Link - Your Path to Mental Wellness{% endblock %}</title>
+    <style>
+        /* === GLOBAL STYLES === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        /* keep your CSS here (unchanged from your original file)... */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            transition: all 0.3s ease;
+        }
+
+        :root {
+            /* Light mode variables */
+            --text-color: #333;
+            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --section-bg: white;
+            --card-bg: #f8f9fa;
+            --border-color: #e9ecef;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --primary-color: #667eea;
+            --text-muted: #666;
+        }
+
+        [data-theme="dark"] {
+            /* Dark mode variables */
+            --text-color: #e9ecef;
+            --bg-gradient: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            --header-bg: rgba(30, 30, 30, 0.95);
+            --section-bg: #2c3e50;
+            --card-bg: #34495e;
+            --border-color: #495057;
+            --shadow: rgba(0, 0, 0, 0.3);
+            --primary-color: #74b9ff;
+            --text-muted: #adb5bd;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: var(--header-bg);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 20px var(--shadow);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .crisis-btn {
+            background: #ff4757;
+            color: white;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .crisis-btn:hover {
+            background: #ff3838;
+            transform: translateY(-2px);
+        }
+
+        main {
+            margin-top: 80px;
+            padding: 2rem 0;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            background: white;
+            color: #667eea;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .features {
+            background: var(--section-bg);
+            padding: 4rem 0;
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            padding: 2rem;
+            border-radius: 15px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:nth-child(2) {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .feature-card:nth-child(3) {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+
+        .feature-card:nth-child(4) {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+
+        .feature-card:nth-child(5) {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            color: #333;
+        }
+
+        .feature-card:nth-child(6) {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .section {
+            background: var(--section-bg);
+            margin: 2rem 0;
+            padding: 3rem 0;
+            border-radius: 20px;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .section h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+        }
+
+        .assessment-tool {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .mood-tracker {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .mood-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f8f9fa;
+            color: #333;
+        }
+
+        .mood-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .mood-excellent { background: #28a745; color: white; }
+        .mood-good { background: #17a2b8; color: white; }
+        .mood-okay { background: #ffc107; color: #333; }
+        .mood-poor { background: #fd7e14; color: white; }
+        .mood-crisis { background: #dc3545; color: white; }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .resource-card {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary-color);
+            transition: all 0.3s ease;
+            color: var(--text-color);
+        }
+
+        .resource-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .emergency-section {
+            background: linear-gradient(135deg, #ff4757 0%, #ff6b7a 100%);
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-radius: 20px;
+            margin: 2rem 0;
+        }
+
+        .emergency-numbers {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .emergency-card {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 2rem;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: var(--section-bg);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 600px;
+            position: relative;
+            color: var(--text-color);
+        }
+
+        .close {
+            position: absolute;
+            right: 1rem;
+            top: 1rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #999;
+        }
+
+        .close:hover {
+            color: #333;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
             
-            <ul class="navbar-nav">
+            .nav-links {
+                display: none;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .emergency-numbers {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <!-- Header / Navbar -->
+    <header>
+        <nav class="container">
+            <a class="logo" href="{{ url_for('home') }}">🧠 Mind Link</a>
+            <ul class="nav-links">
                 {% if user %}
-                    {% if user.role == 'admin' %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('admin.dashboard') }}">Dashboard</a>
+                    {% if user.role in ['therapist', 'admin'] %}
+                        <li>
+                            <a href="{{ url_for('auth.logout') }}" style="background: #ff4757; color: white; padding: 0.5rem 1.2rem; border-radius: 25px; font-weight: bold; text-decoration: none; transition: all 0.3s ease;">Logout</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('patients.index') }}">Patients</a>
+                        <li><button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌓</button></li>
+                    {% elif user.role == 'patient' %}
+                        <li>
+                            <a href="{{ url_for('auth.logout') }}" style="background: #ff4757; color: white; padding: 0.5rem 1.2rem; border-radius: 25px; font-weight: bold; text-decoration: none; transition: all 0.3s ease;">Logout</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('therapists.index') }}">Therapists</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('admin.patient_assignments') }}">Assignments</a>
-                        </li>
-                    {% else %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('therapists.dashboard') }}">Dashboard</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ url_for('patients.index') }}">My Patients</a>
-                        </li>
+                        <li><button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌓</button></li>
                     {% endif %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.profile') }}">Profile</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.logout') }}">Logout</a>
-                    </li>
                 {% else %}
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.login') }}">Login</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('auth.register') }}">Register</a>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#assessment">Assessment</a></li>
+                    <li><a href="#support">Support</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark/light mode">🌓</button></li>
+                    <li>
+                        <a href="{{ url_for('auth.login') }}" style="background: var(--primary-color); color: white; padding: 0.5rem 1.2rem; border-radius: 25px; font-weight: bold; text-decoration: none; transition: all 0.3s ease;">Login</a>
                     </li>
                 {% endif %}
             </ul>
-        </div>
-    </nav>
-    
-    <!-- Main Content -->
-    <main class="container mt-4">
-        {% with messages = get_flashed_messages(with_categories=true) %}
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
+
+            {% if user and user.role == 'patient' %}
+                <button class="crisis-btn" onclick="showCrisisModal()">🚨 Crisis Help</button>
+            {% elif not user %}
+                <button class="crisis-btn" onclick="showCrisisModal()">🚨 Crisis Help</button>
             {% endif %}
-        {% endwith %}
-        
+        </nav>
+    </header>
+
+    <!-- Page content -->
+    <main style="flex: 1 0 auto;">
         {% block content %}{% endblock %}
     </main>
-    
-    <!-- Footer -->
-    <footer class="mt-5 p-4 bg-light">
-        <div class="container">
-            <div class="d-flex justify-content-between">
-                <p class="text-muted mb-0">&copy; 2025 RehabTracker. All rights reserved.</p>
-                <p class="text-muted mb-0">Version 1.0</p>
+
+    <!-- Crisis Modal -->
+    <div id="crisisModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCrisisModal()">&times;</span>
+            <h2 style="color: #ff4757; margin-bottom: 1rem;">🚨 Immediate Crisis Support</h2>
+            <p style="margin-bottom: 2rem;">If you're in immediate danger or having thoughts of suicide or self-harm, please:</p>
+            <div style="background: #fff3cd; padding: 1rem; border-radius: 10px; margin-bottom: 2rem; border-left: 5px solid #ffc107;">
+                <strong>Call 988 (Suicide & Crisis Lifeline)</strong><br>Free, confidential support available 24/7
             </div>
+            <div style="background: #d1ecf1; padding: 1rem; border-radius: 10px; margin-bottom: 2rem; border-left: 5px solid #17a2b8;">
+                <strong>Text HOME to 741741</strong><br>Crisis Text Line - immediate text support
+            </div>
+            <div style="background: #f8d7da; padding: 1rem; border-radius: 10px; margin-bottom: 2rem; border-left: 5px solid #dc3545;">
+                <strong>Call 911</strong><br>For immediate medical emergencies
+            </div>
+            <p><strong>Remember:</strong> This crisis will pass. You are not alone. Help is available.</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer style="flex-shrink: 0;">
+        <div class="container">
+            <p>&copy; 2025 Mind Link. Mental wellness for everyone. Every step forward matters.</p>
+            <p style="margin-top: 1rem; opacity: 0.8;">Disclaimer: This website provides educational resources and support but is not a substitute for professional medical advice, diagnosis, or treatment.</p>
         </div>
     </footer>
-    
-    <!-- JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
-    
-    <!-- Additional JavaScript -->
-    {% block scripts %}{% endblock %}
+
+    <!-- Scripts -->
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            
+            // Store theme preference
+            try {
+                // Use a simple variable instead of localStorage
+                window.currentTheme = newTheme;
+            } catch (e) {
+                console.log('Theme preference not stored');
+            }
+        }
+
+        // Load saved theme or default to light
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = window.currentTheme || 'light';
+            document.body.setAttribute('data-theme', savedTheme);
+        });
+
+        function showCrisisModal() {
+            document.getElementById('crisisModal').style.display = 'block';
+        }
+
+        function closeCrisisModal() {
+            document.getElementById('crisisModal').style.display = 'none';
+        }
+
+        function showResources(mood) {
+            const resultDiv = document.getElementById('assessment-result');
+            const titleEl = document.getElementById('result-title');
+            const messageEl = document.getElementById('result-message');
+            const actionsEl = document.getElementById('result-actions');
+
+            resultDiv.style.display = 'block';
+
+            const resources = {
+                excellent: {
+                    title: "You're Doing Great! 🌟",
+                    message: "It's wonderful that you're feeling excellent. Here are resources to help maintain your mental wellness:",
+                    actions: `
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem;">
+                            <button style="background: var(--section-bg); color: var(--primary-color); padding: 0.5rem 1rem; border: 1px solid var(--primary-color); border-radius: 5px; cursor: pointer;">Daily Mindfulness</button>
+                            <button style="background: var(--section-bg); color: var(--primary-color); padding: 0.5rem 1rem; border: 1px solid var(--primary-color); border-radius: 5px; cursor: pointer;">Stress Prevention</button>
+                            <button style="background: var(--section-bg); color: var(--primary-color); padding: 0.5rem 1rem; border: 1px solid var(--primary-color); border-radius: 5px; cursor: pointer;">Share Your Story</button>
+                        </div>
+                    `
+                },
+                good: {
+                    title: "Keep Up the Good Work! 👍",
+                    message: "You're in a positive space. Here are tools to maintain and enhance your mental wellness:",
+                    actions: `
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem;">
+                            <button style="background: var(--section-bg); color: var(--primary-color); padding: 0.5rem 1rem; border: 1px solid var(--primary-color); border-radius: 5px; cursor: pointer;">Wellness Activities</button>
+                            <button style="background: var(--section-bg); color: var(--primary-color); padding: 0.5rem 1rem; border: 1px solid var(--primary-color); border-radius: 5px; cursor: pointer;">Goal Setting</button>
+                            <button style="background: var(--section-bg); color: var(--primary-color); padding: 0.5rem 1rem; border: 1px solid var(--primary-color); border-radius: 5px; cursor: pointer;">Community Support</button>
+                        </div>
+                    `
+                },
+                okay: {
+                    title: "It's Okay to Be Okay 💛",
+                    message: "Everyone has ups and downs. Here are resources to help boost your mood and resilience:",
+                    actions: `
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem;">
+                            <button style="background: var(--section-bg); color: var(--primary-color); padding: 0.5rem 1rem; border: 1px solid var(--primary-color); border-radius: 5px; cursor: pointer;">Mood Boosters</button>
+                            <button style="background: var(--section-bg); color: var(--primary-color); padding: 0.5rem 1rem; border: 1px solid var(--primary-color); border-radius: 5px; cursor: pointer;">Coping Strategies</button>
+                            <button style="background: var(--section-bg); color: var(--primary-color); padding: 0.5rem 1rem; border: 1px solid var(--primary-color); border-radius: 5px; cursor: pointer;">Self-Care Tips</button>
+                        </div>
+                    `
+                },
+                poor: {
+                    title: "We're Here for You 🤗",
+                    message: "It's brave of you to reach out. You're not alone, and support is available:",
+                    actions: `
+                        <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; margin-top: 1rem;">
+                            <button style="background: var(--section-bg); color: var(--primary-color); padding: 0.5rem 1rem; border: 1px solid var(--primary-color); border-radius: 5px; cursor: pointer;">Find a Therapist</button>
+                            <button style="background: var(--section-bg); color: var(--primary-color); padding: 0.5rem 1rem; border: 1px solid var(--primary-color); border-radius: 5px; cursor: pointer;">Support Groups</button>
+                            <button style="background: var(--section-bg); color: var(--primary-color); padding: 0.5rem 1rem; border: 1px solid var(--primary-color); border-radius: 5px; cursor: pointer;">Crisis Resources</button>
+                        </div>
+                    `
+                }
+            };
+
+            const resource = resources[mood];
+            titleEl.textContent = resource.title;
+            messageEl.textContent = resource.message;
+            actionsEl.innerHTML = resource.actions;
+        }
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('crisisModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Add some interactive elements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add floating animation to feature cards
+            const cards = document.querySelectorAll('.feature-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
+    {% block extra_js %}{% endblock %}
 </body>
 </html>

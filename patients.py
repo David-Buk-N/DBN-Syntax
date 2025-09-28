@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, request, flash
-from auth import login_required, therapist_required, get_current_user
+from flask_login import current_user
+from auth import login_required, get_current_user
 from models import (get_patient, get_patients, create_patient, update_patient, 
                     get_patient_progress, add_progress_update, get_patient_therapists)
 
@@ -20,7 +21,7 @@ def index():
         from models import get_therapist_patients
         patients = get_therapist_patients(user.get('id'))
     
-    return render_template('patients/index.html', patients=patients)
+    return render_template('patients/index.html', patients=patients, user=current_user)
 
 @patients_bp.route('/view/<patient_id>')
 @login_required

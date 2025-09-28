@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}My Progress - Mind Link{% endblock %}
+
+{% block content %}
+<section class="section" style="max-width: 900px; margin: 0 auto;">
+    <div class="container">
+        <div class="feature-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; box-shadow: 0 10px 30px var(--shadow); border-radius: 20px; padding: 2.5rem 2rem;">
+            <h2 style="text-align:center; margin-bottom: 2rem;">Your Progress</h2>
+            {% if tasks and tasks|length > 0 %}
+                <table style="width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 12px; box-shadow: 0 2px 8px var(--shadow);">
+                    <thead style="background: var(--section-bg);">
+                        <tr style="color: var(--primary-color); text-align: left;">
+                            <th style="padding: 1rem 0.7rem;">Task</th>
+                            <th style="padding: 1rem 0.7rem;">Description</th>
+                            <th style="padding: 1rem 0.7rem;">Status</th>
+                            <th style="padding: 1rem 0.7rem;">Last Updated</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in tasks %}
+                        <tr style="border-bottom: 1px solid var(--border-color);">
+                            <td style="padding: 0.9rem 0.7rem; font-weight: 500;">{{ task.title }}</td>
+                            <td style="padding: 0.9rem 0.7rem;">{{ task.description }}</td>
+                            <td style="padding: 0.9rem 0.7rem;">
+                                {% if task.completed %}
+                                    <span style="background: #28a745; color: white; border-radius: 12px; padding: 0.3rem 1rem; font-size: 0.95rem;">Completed</span>
+                                {% else %}
+                                    <span style="background: #ffc107; color: #333; border-radius: 12px; padding: 0.3rem 1rem; font-size: 0.95rem;">In Progress</span>
+                                {% endif %}
+                            </td>
+                            <td style="padding: 0.9rem 0.7rem;">{{ task.updated_at }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% else %}
+                <div style="text-align: center; padding: 2rem;">
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 1.1rem;">No tasks found. Start by booking a consultation or taking a survey!</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}

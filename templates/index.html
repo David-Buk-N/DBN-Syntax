@@ -1,110 +1,202 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
-{% block title %}RehabTracker - Rehabilitation Center Management System{% endblock %}
+{% block title %}Mind Link - Home{% endblock %}
 
 {% block content %}
-<div class="row align-items-center mt-4">
-    <div class="col-md-6">
-        <h1 class="mb-4">Streamline Rehabilitation Patient Care</h1>
-        <p class="lead mb-4">RehabTracker is a comprehensive management system for rehabilitation centers, helping therapists and administrators track patient progress efficiently.</p>
-        
-        <div class="d-flex gap-3 mt-4">
-            {% if not user %}
-                <a href="{{ url_for('auth.login') }}" class="btn btn-primary">Log In</a>
-                <a href="{{ url_for('auth.register') }}" class="btn btn-outline">Register</a>
-            {% else %}
-                {% if user.role == 'admin' %}
-                    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary">Admin Dashboard</a>
-                {% else %}
-                    <a href="{{ url_for('therapists.dashboard') }}" class="btn btn-primary">Therapist Dashboard</a>
-                {% endif %}
-            {% endif %}
+    <section id="home" class="hero">
+        <div class="container">
+            <h1>Your Mental Wellness Journey Starts Here</h1>
+            <p>Comprehensive support for everyone - from daily wellness to crisis intervention. You're not alone.</p>
+            <a href="#assessment" class="cta-button">Start Your Assessment</a>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="card scale-in">
-            <div class="card-body p-4">
-                <div class="text-center mb-4">
-                    <i class="bi bi-heart-pulse text-primary" style="font-size: 4rem;"></i>
-                    <h2 class="mt-3">RehabTracker</h2>
-                    <p class="text-muted">Care. Track. Improve.</p>
-                </div>
-                
-                <div class="mt-4">
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="me-3 text-center">
-                            <i class="bi bi-check-circle-fill text-success" style="font-size: 1.5rem;"></i>
-                        </div>
-                        <div>
-                            <h4 class="mb-1">Streamlined Workflow</h4>
-                            <p class="text-muted mb-0">Efficiently manage patient assignments and treatment plans</p>
-                        </div>
-                    </div>
-                    
-                    <div class="d-flex align-items-center mb-3">
-                        <div class="me-3 text-center">
-                            <i class="bi bi-graph-up-arrow text-primary" style="font-size: 1.5rem;"></i>
-                        </div>
-                        <div>
-                            <h4 class="mb-1">Progress Tracking</h4>
-                            <p class="text-muted mb-0">Monitor and document patient rehabilitation journey</p>
-                        </div>
-                    </div>
-                    
-                    <div class="d-flex align-items-center">
-                        <div class="me-3 text-center">
-                            <i class="bi bi-shield-check text-secondary" style="font-size: 1.5rem;"></i>
-                        </div>
-                        <div>
-                            <h4 class="mb-1">Secure Access</h4>
-                            <p class="text-muted mb-0">Role-based security ensures data privacy and compliance</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    </section>
 
-<div class="mt-5 pt-4">
-    <h2 class="text-center mb-4">How It Works</h2>
-    
-    <div class="row mt-4">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center p-4">
-                    <div class="rounded-circle bg-primary d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
-                        <i class="bi bi-person-plus text-white" style="font-size: 2rem;"></i>
-                    </div>
-                    <h3>Patient Registration</h3>
-                    <p class="text-muted">Admins can add new patients and capture essential medical information for proper treatment planning.</p>
+    <section class="features">
+        <div class="container">
+            <h2>How We Help You Thrive</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Personalized Assessment</h3>
+                    <p>Quick, confidential screening to understand your current mental health needs and create a personalized path forward.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧘</div>
+                    <h3>Daily Wellness Tools</h3>
+                    <p>Meditation, breathing exercises, mood tracking, and mindfulness practices for maintaining mental wellness.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📚</div>
+                    <h3>Educational Resources</h3>
+                    <p>Evidence-based information about mental health conditions, treatments, and coping strategies.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">👥</div>
+                    <h3>Community Support</h3>
+                    <p>Connect with peer support groups, forums, and communities of people on similar journeys.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🩺</div>
+                    <h3>Professional Network</h3>
+                    <p>Directory of mental health professionals, therapists, and treatment centers in your area.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🆘</div>
+                    <h3>Crisis Support</h3>
+                    <p>24/7 crisis intervention resources, hotlines, and immediate support for mental health emergencies.</p>
                 </div>
             </div>
         </div>
-        
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center p-4">
-                    <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
-                        <i class="bi bi-people text-white" style="font-size: 2rem;"></i>
+    </section>
+
+    <section id="assessment" class="section">
+            <div class="container">
+                <h2>Mental Wellness Check-In</h2>
+                <div class="assessment-tool">
+                    <h3>How are you feeling today?</h3>
+                    <p>Your honest self-assessment helps us provide the most relevant resources for you.</p>
+                    <div class="mood-tracker">
+                        <button class="mood-btn mood-excellent" onclick="showResources('excellent')">😊 Excellent</button>
+                        <button class="mood-btn mood-good" onclick="showResources('good')">🙂 Good</button>
+                        <button class="mood-btn mood-okay" onclick="showResources('okay')">😐 Okay</button>
+                        <button class="mood-btn mood-poor" onclick="showResources('poor')">😔 Struggling</button>
+                        <button class="mood-btn mood-crisis" onclick="showCrisisModal()">🚨 Crisis</button>
                     </div>
-                    <h3>Therapist Assignment</h3>
-                    <p class="text-muted">Administrators assign patients to appropriate therapists based on specialty and workload.</p>
+                    <div id="assessment-result" style="margin-top: 2rem; display: none;">
+                        <h4 id="result-title"></h4>
+                        <p id="result-message"></p>
+                        <div id="result-actions"></div>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="col-md-4 mb-4">
-            <div class="card h-100">
-                <div class="card-body text-center p-4">
-                    <div class="rounded-circle bg-accent d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px;">
-                        <i class="bi bi-clipboard-data text-white" style="font-size: 2rem;"></i>
+        </section>
+
+        <section id="resources" class="section">
+            <div class="container">
+                <h2>Mental Health Resources</h2>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <h3>🧠 Understanding Mental Health</h3>
+                        <p>Learn about different mental health conditions, symptoms, and treatment options. Knowledge empowers recovery.</p>
+                        <ul style="margin-top: 1rem; text-align: left;">
+                            <li>Depression and Anxiety Disorders</li>
+                            <li>PTSD and Trauma Recovery</li>
+                            <li>Bipolar and Mood Disorders</li>
+                            <li>Eating Disorders</li>
+                            <li>Substance Use Disorders</li>
+                        </ul>
                     </div>
-                    <h3>Progress Documentation</h3>
-                    <p class="text-muted">Therapists record progress notes after each session to track treatment effectiveness and patient improvement.</p>
+                    <div class="resource-card">
+                        <h3>🏥 Treatment Options</h3>
+                        <p>Explore various treatment approaches to find what works best for you.</p>
+                        <ul style="margin-top: 1rem; text-align: left;">
+                            <li>Therapy and Counseling</li>
+                            <li>Medication Management</li>
+                            <li>Support Groups</li>
+                            <li>Alternative Treatments</li>
+                            <li>Inpatient and Outpatient Care</li>
+                        </ul>
+                    </div>
+                    <div class="resource-card">
+                        <h3>🛠 Coping Strategies</h3>
+                        <p>Practical tools and techniques for managing mental health challenges day-to-day.</p>
+                        <ul style="margin-top: 1rem; text-align: left;">
+                            <li>Stress Management</li>
+                            <li>Mindfulness and Meditation</li>
+                            <li>Exercise and Nutrition</li>
+                            <li>Sleep Hygiene</li>
+                            <li>Building Resilience</li>
+                        </ul>
+                    </div>
+                    <div class="resource-card">
+                        <h3>👨‍👩‍👧‍👦 For Families</h3>
+                        <p>Resources for family members and loved ones supporting someone with mental health challenges.</p>
+                        <ul style="margin-top: 1rem; text-align: left;">
+                            <li>How to Offer Support</li>
+                            <li>Setting Healthy Boundaries</li>
+                            <li>Understanding Stigma</li>
+                            <li>Family Therapy Resources</li>
+                            <li>Self-Care for Caregivers</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
+        </section>
+
+        <section class="emergency-section">
+            <div class="container">
+                <h2>🚨 Crisis Resources - You're Not Alone</h2>
+                <p>If you're having thoughts of suicide or self-harm, please reach out immediately. Help is available 24/7.</p>
+                <div class="emergency-numbers">
+                    <div class="emergency-card">
+                        <h3>988 Suicide & Crisis Lifeline</h3>
+                        <p><strong>Call: 988</strong></p>
+                        <p>Text: 988</p>
+                        <p>24/7 confidential support</p>
+                    </div>
+                    <div class="emergency-card">
+                        <h3>Crisis Text Line</h3>
+                        <p><strong>Text HOME to 741741</strong></p>
+                        <p>Free, 24/7 crisis support</p>
+                    </div>
+                    <div class="emergency-card">
+                        <h3>Emergency Services</h3>
+                        <p><strong>Call: 911</strong></p>
+                        <p>For immediate medical emergencies</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="support" class="section">
+            <div class="container">
+                <h2>Find Professional Support</h2>
+                <p style="text-align: center; margin-bottom: 2rem;">Connect with mental health professionals in your area or through telehealth services.</p>
+                <div class="resources-grid">
+                    <div class="resource-card">
+                        <h3>🔍 Find a Therapist</h3>
+                        <p>Search our directory of licensed mental health professionals by location, specialty, and insurance.</p>
+                        <button style="background: var(--primary-color); color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; margin-top: 1rem; cursor: pointer;">Search Therapists</button>
+                    </div>
+                    <div class="resource-card">
+                        <h3>💻 Telehealth Options</h3>
+                        <p>Access mental health care from the comfort of your home through secure video sessions.</p>
+                        <button style="background: var(--primary-color); color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; margin-top: 1rem; cursor: pointer;">View Options</button>
+                    </div>
+                    <div class="resource-card">
+                        <h3>💰 Financial Assistance</h3>
+                        <p>Information about insurance coverage, sliding scale fees, and free mental health resources.</p>
+                        <button style="background: var(--primary-color); color: white; padding: 0.5rem 1rem; border: none; border-radius: 5px; margin-top: 1rem; cursor: pointer;">Learn More</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crisis Modal -->
+    <div id="crisisModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCrisisModal()">&times;</span>
+            <h2 style="color: #ff4757; margin-bottom: 1rem;">🚨 Immediate Crisis Support</h2>
+            <p style="margin-bottom: 2rem;">If you're in immediate danger or having thoughts of suicide or self-harm, please:</p>
+            
+            <div style="background: #fff3cd; padding: 1rem; border-radius: 10px; margin-bottom: 2rem; border-left: 5px solid #ffc107;">
+                <strong>Call 988 (Suicide & Crisis Lifeline)</strong><br>
+                Free, confidential support available 24/7
+            </div>
+            
+            <div style="background: #d1ecf1; padding: 1rem; border-radius: 10px; margin-bottom: 2rem; border-left: 5px solid #17a2b8;">
+                <strong>Text HOME to 741741</strong><br>
+                Crisis Text Line - immediate text support
+            </div>
+            
+            <div style="background: #f8d7da; padding: 1rem; border-radius: 10px; margin-bottom: 2rem; border-left: 5px solid #dc3545;">
+                <strong>Call 911</strong><br>
+                For immediate medical emergencies
+            </div>
+            
+            <p><strong>Remember:</strong> This crisis will pass. You are not alone. Help is available.</p>
         </div>
     </div>
-</div>
+
+    <!-- keep all your sections: assessment, resources, emergency-section, support -->
 {% endblock %}

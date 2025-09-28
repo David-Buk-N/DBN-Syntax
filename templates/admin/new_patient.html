@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}Register - Mind Link{% endblock %}
+{% block title %}Add New Patient - Mind Link{% endblock %}
 
 {% block content %}
 <section class="section" style="max-width: 500px; margin: 0 auto;">
     <div class="container">
-        <div class="feature-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); color: white; box-shadow: 0 10px 30px var(--shadow); border-radius: 20px; padding: 2.5rem 2rem;">
-            <h2 style="text-align:center; margin-bottom: 1.5rem;">Create Your Account</h2>
-            <form method="POST" action="{{ url_for('auth.register') }}" style="display: flex; flex-direction: column; gap: 1.2rem;">
+        <div class="feature-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%); color: white; box-shadow: 0 10px 30px var(--shadow); border-radius: 20px; padding: 2.5rem 2rem;">
+            <h2 style="text-align:center; margin-bottom: 1.5rem;">Add New Patient</h2>
+            <form method="POST" action="{{ url_for('admin.new_patient') }}" style="display: flex; flex-direction: column; gap: 1.2rem;">
                 <div>
                     <label for="name" style="font-weight: 500; margin-bottom: 0.5rem; display: block;">Full Name</label>
                     <input type="text" id="name" name="name" value="{{ name|default('') }}" required style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color);">
@@ -23,17 +23,9 @@
                 <div>
                     <label for="password" style="font-weight: 500; margin-bottom: 0.5rem; display: block;">Password</label>
                     <input type="password" id="password" name="password" required style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color);">
-                    <small style="color: var(--text-muted);">Password must be at least 6 characters long.</small>
                 </div>
-                <div>
-                    <label for="confirm_password" style="font-weight: 500; margin-bottom: 0.5rem; display: block;">Confirm Password</label>
-                    <input type="password" id="confirm_password" name="confirm_password" required style="width: 100%; padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color);">
-                </div>
-                <button type="submit" style="background: var(--primary-color); color: white; padding: 0.9rem 0; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 1rem; transition: all 0.3s ease;">Register</button>
+                <button type="submit" style="background: var(--primary-color); color: white; padding: 0.9rem 0; border: none; border-radius: 50px; font-size: 1.1rem; font-weight: bold; cursor: pointer; margin-top: 1rem; transition: all 0.3s ease;">Add Patient</button>
             </form>
-            <div style="text-align: center; margin-top: 1.5rem;">
-                <p style="color: var(--text-muted);">Already have an account? <a href="{{ url_for('auth.login') }}" style="color: #fff; text-decoration: underline;">Login</a></p>
-            </div>
         </div>
     </div>
 </section>

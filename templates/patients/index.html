@@ -1,61 +1,60 @@
 {% extends 'base.html' %}
 
-{% block title %}Patients - RehabTracker{% endblock %}
+{% block title %}Patients - Mind Link{% endblock %}
 
 {% block content %}
-<div class="mb-4 d-flex justify-content-between align-items-center">
-    <h1 class="mb-0">Patients</h1>
-    {% if user.role == 'admin' %}
-        <a href="{{ url_for('patients.new') }}" class="btn btn-primary">
-            <i class="bi bi-person-plus me-2"></i>Add New Patient
-        </a>
-    {% endif %}
-</div>
-
-<div class="card mb-4">
-    <div class="card-body">
-        {% if patients %}
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Name</th>
-                        <th>Age</th>
-                        <th>Medical Condition</th>
-                        <th>Treatment Plan</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for patient in patients %}
-                        <tr>
-                            <td>
-                                <a href="{{ url_for('patients.view', patient_id=patient.id) }}">{{ patient.name }}</a>
-                            </td>
-                            <td>{{ patient.age }}</td>
-                            <td>{{ patient.medical_condition }}</td>
-                            <td>{{ patient.treatment_plan|truncate(50) }}</td>
-                            <td>
-                                <a href="{{ url_for('patients.view', patient_id=patient.id) }}" class="btn btn-sm btn-outline">
-                                    <i class="bi bi-eye me-1"></i>View
-                                </a>
-                                {% if user.role == 'admin' %}
-                                    <a href="{{ url_for('patients.edit', patient_id=patient.id) }}" class="btn btn-sm btn-outline">
-                                        <i class="bi bi-pencil me-1"></i>Edit
-                                    </a>
-                                {% endif %}
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% else %}
-            <div class="text-center p-4">
-                <p class="text-muted mb-3">No patients found</p>
-                {% if user.role == 'admin' %}
-                    <a href="{{ url_for('patients.new') }}" class="btn btn-primary">Add New Patient</a>
-                {% endif %}
-            </div>
-        {% endif %}
+<section class="section" style="max-width: 1100px; margin: 0 auto;">
+    <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <h1 style="margin: 0; color: var(--primary-color);">Patients</h1>
+            {% if user.role == 'admin' %}
+                <a href="{{ url_for('patients.new') }}" style="background: var(--primary-color); color: white; padding: 0.7rem 1.5rem; border-radius: 25px; font-weight: bold; text-decoration: none; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 2px 10px var(--shadow);">
+                    &#128100; Add New Patient
+                </a>
+            {% endif %}
+        </div>
+        <div class="feature-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; box-shadow: 0 10px 30px var(--shadow); border-radius: 20px; padding: 2.5rem 2rem;">
+            {% if patients %}
+                <div style="overflow-x: auto;">
+                    <table style="width: 100%; border-collapse: collapse; background: var(--card-bg); border-radius: 12px; box-shadow: 0 2px 8px var(--shadow);">
+                        <thead style="background: var(--section-bg);">
+                            <tr style="color: var(--primary-color); text-align: left;">
+                                <th style="padding: 1rem 0.7rem;">Name</th>
+                                <th style="padding: 1rem 0.7rem;">Age</th>
+                                <th style="padding: 1rem 0.7rem;">Medical Condition</th>
+                                <th style="padding: 1rem 0.7rem;">Treatment Plan</th>
+                                <th style="padding: 1rem 0.7rem;">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for patient in patients %}
+                                <tr style="border-bottom: 1px solid var(--border-color);">
+                                    <td style="padding: 0.9rem 0.7rem;">
+                                        <a href="{{ url_for('patients.view', patient_id=patient.id) }}" style="color: var(--primary-color); font-weight: 500; text-decoration: underline;">{{ patient.name }}</a>
+                                    </td>
+                                    <td style="padding: 0.9rem 0.7rem;">{{ patient.age }}</td>
+                                    <td style="padding: 0.9rem 0.7rem;">{{ patient.medical_condition }}</td>
+                                    <td style="padding: 0.9rem 0.7rem;">{{ patient.treatment_plan|truncate(50) }}</td>
+                                    <td style="padding: 0.9rem 0.7rem;">
+                                        <a href="{{ url_for('patients.view', patient_id=patient.id) }}" style="background: var(--primary-color); color: white; padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.95rem; font-weight: 500; text-decoration: none; margin-right: 0.5rem; transition: all 0.3s ease;">View</a>
+                                        {% if user.role == 'admin' %}
+                                            <a href="{{ url_for('patients.edit', patient_id=patient.id) }}" style="background: var(--section-bg); color: var(--primary-color); padding: 0.4rem 1rem; border-radius: 20px; font-size: 0.95rem; font-weight: 500; text-decoration: none; border: 1px solid var(--primary-color); transition: all 0.3s ease;">Edit</a>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div style="text-align: center; padding: 2rem;">
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem;">No patients found</p>
+                    {% if user.role == 'admin' %}
+                        <a href="{{ url_for('patients.new') }}" style="background: var(--primary-color); color: white; padding: 0.7rem 1.5rem; border-radius: 25px; font-weight: bold; text-decoration: none; font-size: 1rem; transition: all 0.3s ease; box-shadow: 0 2px 10px var(--shadow);">Add New Patient</a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
     </div>
-</div>
+</section>
 {% endblock %}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Find a Therapist - Mind Link{% endblock %}
+
+{% block content %}
+<section class="section" style="max-width: 900px; margin: 0 auto;">
+    <div class="container">
+        <div class="feature-card" style="background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%); color: #333; box-shadow: 0 10px 30px var(--shadow); border-radius: 20px; padding: 2.5rem 2rem;">
+            <h2 style="text-align:center; margin-bottom: 2rem;">Therapist Directory</h2>
+            {% if therapists and therapists|length > 0 %}
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    {% for therapist in therapists %}
+                        <div style="background: var(--card-bg); border-radius: 12px; padding: 1.5rem 2rem; box-shadow: 0 2px 8px var(--shadow);">
+                            <h3 style="color: var(--primary-color); margin-bottom: 0.5rem;">{{ therapist.name }}</h3>
+                            <p style="margin-bottom: 0.5rem;"><strong>Profession:</strong> {{ therapist.profession }}</p>
+                            <p style="margin-bottom: 0.5rem;"><strong>Bio:</strong> {{ therapist.bio }}</p>
+                            <form method="POST" action="{{ url_for('patient_user.request_consult', therapist_id=therapist.id) }}" style="margin-top: 1rem;">
+                                <button type="submit"
+                                    style="background: var(--primary-color); color: white; padding: 0.6rem 1.2rem; border: none; border-radius: 25px; font-weight: bold; cursor: pointer; font-size: 1rem; transition: all 0.3s ease;"
+                                    {% if therapist.already_booked or max_booked %}disabled style="background: #ccc; color: #666; cursor: not-allowed;"{% endif %}>
+                                    {% if therapist.already_booked %}
+                                        Already Booked
+                                    {% elif max_booked %}
+                                        Max 3 Therapists Booked
+                                    {% else %}
+                                        Consult Therapist
+                                    {% endif %}
+                                </button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div style="text-align: center; padding: 2rem;">
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 1.1rem;">No therapists found.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock %}
